@@ -28,7 +28,7 @@ class SongsController(object):
         """
         for param in ('current_page', 'page_size'):
             try:
-                if int(request.args.get(param, 0)) <= 0:
+                if int(request.args.get(param, 1)) <= 0:
                     raise exceptions.InvalidParameterError('{} must be greater than zero.'.format(param))
             except ValueError:
                 raise exceptions.InvalidParameterError('{} must be an int value.'.format(param))
