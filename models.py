@@ -22,7 +22,7 @@ class Song(db.Document):
         }
 
 
-if not Song.objects.all():
+def populate_songs_db():
     Song(artist='Mr Fastfinger', title='Awaki-Waki', difficulty=15, level=13, released='2012-05-11').save()
     Song(artist='The Yousicians', title='A New Kennel', difficulty=9.1, level=9, released='2010-02-03').save()
     Song(artist='The Yousicians', title='Alabama Sunrise', difficulty=5, level=6, released='2016-04-01').save()
@@ -42,3 +42,7 @@ if not Song.objects.all():
     Song(
         artist='The Yousicians', title='Greasy Fingers - boss level', difficulty=2, level=3, released='2016-03-01'
     ).save()
+
+
+if not Song.objects.all():
+    populate_songs_db()
