@@ -11,14 +11,17 @@ class Song(db.Document):
     difficulty = DecimalField(required=True)
     level = IntField(required=True)
     released = StringField(required=True)
+    rating = IntField(min_value=1, max_value=5)
 
     def as_json(self):
         return {
+            'id': str(self.id),
             'artist': self.artist,
             'title': self.title,
             'difficulty': float(str(self.difficulty)),
             'level': self.level,
             'released': self.released,
+            'rating': self.rating,
         }
 
 
