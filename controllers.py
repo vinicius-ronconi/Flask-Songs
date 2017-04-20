@@ -1,5 +1,6 @@
 import exceptions
 from models import Song
+from mongoengine.queryset.visitor import Q
 
 
 class SongsController(object):
@@ -20,6 +21,17 @@ class SongsController(object):
         songs = Song.objects.paginate(page=current_page, per_page=page_size)
         return [song.as_json() for song in songs.items]
 
+    def get_average_difficulty(self, request):
+        """
+        :param request: flask.request
+        :rtype: dict
+        """
+        request = self._validate_request_parameters(request, param_list=('level',))
+        query = {}
+        if request.args.get('level'):
+            query = {'level': request.args.get('level')}
+        return {'average': round(Song.objects.filter(**query).average('difficulty'), 2)}
+
     @staticmethod
     def _validate_request_parameters(request, param_list):
         """
@@ -34,13 +46,14 @@ class SongsController(object):
                 raise exceptions.InvalidParameterError('{} must be an int value.'.format(param))
         return request
 
-    def get_average_difficulty(self, request):
+    @staticmethod
+    def get_songs_by_keyword(request):
         """
-        :param request: flask.request
-        :rtype: dict
+        :type request: flask.request 
+        :rtype: list[dict]
         """
-        request = self._validate_request_parameters(request, param_list=('level',))
-        query = {}
-        if request.args.get('level'):
-            query = {'level': request.args.get('level')}
-        return {'average': round(Song.objects.filter(**query).average('difficulty'), 2)}
+        if 'query' not in request.args:
+            raise exceptions.InvalidParameterError('Missing required parameter: query')
+        keyword = request.args.get('query')
+        songs = Song.objects(Q(artist__icontains=keyword) | Q(title__icontains=keyword))
+        return [song.as_json() for song in songs]

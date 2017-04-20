@@ -26,6 +26,11 @@ class AverageDifficultyView(MethodView):
         return jsonify(songs_controller.get_average_difficulty(request))
 
 
+class SongsSearchView(MethodView):
+    def get(self):
+        return jsonify(songs_controller.get_songs_by_keyword(request))
+
+
 @app.errorhandler(exceptions.InvalidParameterError)
 def handle_invalid_parameters(error):
     """
@@ -39,6 +44,7 @@ def handle_invalid_parameters(error):
 
 app.add_url_rule('/songs', view_func=AllSongsView.as_view('all_songs'))
 app.add_url_rule('/songs/avg/difficulty', view_func=AverageDifficultyView.as_view('average_difficulty'))
+app.add_url_rule('/songs/search', view_func=SongsSearchView.as_view('songs_search'))
 
 
 if __name__ == '__main__':

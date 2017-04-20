@@ -9,6 +9,9 @@ class GetAllSongsTestCase(unittest.TestCase):
         self.app = app.app.test_client()
         Song.objects.all().delete()
 
+    def tearDown(self):
+        Song.objects.all().delete()
+
     def test_it_validates_invalid_parameters(self):
         response = self.app.get('/songs?current_page=asd&page_size=1')
         self.assertEqual(response.status_code, 400)

@@ -10,6 +10,9 @@ class AverageDifficultyTestCase(unittest.TestCase):
         Song.objects.all().delete()
         self._populate_database()
 
+    def tearDown(self):
+        Song.objects.all().delete()
+
     def test_it_returns_zero_when_no_music_was_found_in_level(self):
         self._assert_average_difficulty('/songs/avg/difficulty?level=5', 0)
 
