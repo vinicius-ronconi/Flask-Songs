@@ -97,11 +97,8 @@ class SongsController(object):
             },
         )
         song = Song.objects.get_or_404(pk=song_id)
-        try:
-            song.rating = int(request.args.get('rating'))
-            song.save()
-        except ValidationError as e:
-            raise exceptions.InvalidParameterError(str(e))
+        song.rating = int(request.args.get('rating'))
+        song.save()
         return song.as_json()
 
     @staticmethod
