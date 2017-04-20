@@ -2,19 +2,18 @@ import exceptions
 from beans import RequestParameterValidator
 from models import Song
 from mongoengine.queryset.visitor import Q
-from mongoengine.errors import ValidationError
 
 
 class SongsController(object):
     def __init__(self, db):
         """
-        :type db: flask_mongoengine.MongoEngine 
+        :type db: flask_mongoengine.MongoEngine
         """
         self.db = db
 
     def get_all_songs(self, request):
         """
-        :type request: flask.request 
+        :type request: flask.request
         :rtype: list[dict]
         """
         request = self._validate_request_parameters(
@@ -65,7 +64,7 @@ class SongsController(object):
 
     def get_songs_by_keyword(self, request):
         """
-        :type request: flask.request 
+        :type request: flask.request
         :rtype: list[dict]
         """
         request = self._validate_request_parameters(
@@ -87,7 +86,7 @@ class SongsController(object):
     def rate_song(self, request, song_id):
         """
         :type request: flask.request
-        :type song_id: str 
+        :type song_id: str
         :rtype: dict
         """
         request = self._validate_request_parameters(
@@ -104,9 +103,9 @@ class SongsController(object):
     @staticmethod
     def _validate_request_parameters(request, validators):
         """
-        :type request: flask.request 
+        :type request: flask.request
         :type validators: dict[str: beans.RequestParameterValidator]
-        :rtype: flask.request 
+        :rtype: flask.request
         """
         for param_name, validator in validators.items():
             if validator.required and param_name not in request.args:

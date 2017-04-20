@@ -6,6 +6,6 @@ class RequestParameterValidator(namedtuple('RequestParameterValidator', [
     'required',  # bool
     'min_value',  # obj
     'max_value',  # obj
-    'default',  #obj
+    'default',  # obj
 ])):
     pass

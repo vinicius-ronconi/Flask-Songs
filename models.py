@@ -1,5 +1,6 @@
 from flask_mongoengine import MongoEngine
-from mongoengine import *
+from mongoengine import connect, DecimalField, IntField, StringField
+
 
 db = MongoEngine()
 connect('songsdb')

@@ -39,8 +39,8 @@ class SongRatingView(MethodView):
 @app.errorhandler(exceptions.InvalidParameterError)
 def handle_invalid_parameters(error):
     """
-    :type error: exceptions.InvalidParameterError 
-    :return: 
+    :type error: exceptions.InvalidParameterError
+    :return: flask.wrappers.Response
     """
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
