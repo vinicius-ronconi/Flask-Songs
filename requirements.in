@@ -1,0 +1,7 @@
+# requirements.in
+Flask
+flask-mongoengine
+coverage
+flake8
+nose
+pip-tools
