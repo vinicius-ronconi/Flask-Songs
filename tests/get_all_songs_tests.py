@@ -50,11 +50,13 @@ class GetAllSongsTestCase(unittest.TestCase):
         response = self.app.get('/songs?current_page=2&page_size=5')
         self.assertEqual(response.status_code, 404)
 
-    def _populate_database(self):
+    @staticmethod
+    def _populate_database():
         Song(artist='myself', title='first song', level=11, difficulty=1, released='2017-01-11').save()
         Song(artist='myself', title='second song', level=12, difficulty=2, released='2017-01-12').save()
         Song(artist='myself', title='third song', level=13, difficulty=3, released='2017-01-13').save()
         Song(artist='myself', title='fourth song', level=14, difficulty=4, released='2017-01-14').save()
+
 
 if __name__ == '__main__':
     unittest.main()
